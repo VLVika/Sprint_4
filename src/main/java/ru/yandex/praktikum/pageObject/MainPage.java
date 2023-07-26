@@ -14,7 +14,7 @@ public class MainPage {
  // поле драйвера
     private WebDriver driver;
 
-// URL страницы
+// URL стартовой страницы
     private static final String PAGE_URL = "https://qa-scooter.praktikum-services.ru/";
 
 //Cookie Massage
@@ -24,14 +24,14 @@ public class MainPage {
 
     private static final By COOKIE_BUTTON_ACCEPT = By.className("App_CookieButton__3cvqF");
 
-//таймаут 5 минут
+//таймаут 5 секунд
     private static final int WAIT_FIVE = 5;
 
  //кнопка Заказать в заголовке страницы
-    private static final By BUTTON_ORDER_IN_HEAD = By.className("Button_Button__ra12g");
+    public static final By BUTTON_ORDER_IN_HEAD = By.className("Button_Button__ra12g");
 
  //кнопка Заказать в конце страницы
-    private static final By BUTTON_ORDER_IN_FINISH_PAGE = By.className("Button_Button__ra12g Button_Middle__1CSJM");
+    public static final By BUTTON_ORDER_IN_FINISH_PAGE = By.xpath(".//button[@class = 'Button_Button__ra12g Button_Middle__1CSJM' and text()= 'Заказать']");
 
 //Вопросы о Важном
 
@@ -42,7 +42,7 @@ public class MainPage {
     private static final String BUTTON_QUESTION = "accordion__heading-";
 
 // поле Ответ на Вопрос
-    private static final String ANSWER_ON_BUTTON_QUESTION_HOW_MUCH = "accordion__panel-";
+    private static final String ANSWER_ON_BUTTON_QUESTION = "accordion__panel-";
 
 
 //Конструктор класса
@@ -84,7 +84,7 @@ public class MainPage {
 
 //Находим кнопку ответа по номеры ответа в списке, получаем текст
     public String findAnswerInQuestionAboutImportant(String number){
-        return driver.findElement(By.id(ANSWER_ON_BUTTON_QUESTION_HOW_MUCH + number)).getText();
+        return driver.findElement(By.id(ANSWER_ON_BUTTON_QUESTION + number)).getText();
     }
 
 //метод проверки наличия на странице сообщения о куки и закрытия их, в случае если они отобразились на странице
