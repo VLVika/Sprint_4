@@ -78,6 +78,7 @@ public class MainPage {
     public void findAndClickButtonQuestionAboutImportant(String number, String expectedQuestion){
       WebElement question = driver.findElement(By.id(BUTTON_QUESTION + number));
       String actualQuestion = question.getText();
+      question.click();
         assertEquals("Ожидаемый текст вопроса не соответствует фактическому",expectedQuestion,actualQuestion);
         question.click();
     }

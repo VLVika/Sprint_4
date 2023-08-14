@@ -12,13 +12,12 @@ import ru.yandex.praktikum.pageObject.MainPage;
 
 
 @RunWith(Parameterized.class)
-public class FAQ_Tests {
+public class FAQ_Tests extends BaseTest{
 
     private final String number;
     private final String question;
     private final String answer;
 
-    WebDriver driver;
 
 
         public FAQ_Tests(String number, String question, String answer) {
@@ -46,12 +45,6 @@ public class FAQ_Tests {
             };
         }
 
-    @Before
-    public void startChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win64\\chromedriver.exe");
-        driver = new ChromeDriver();
-
-    }
 
         @Test
 
@@ -69,9 +62,5 @@ public class FAQ_Tests {
 
         }
 
-        @After
-        public void closeDriver() {
-            driver.quit();
-        }
     }
 

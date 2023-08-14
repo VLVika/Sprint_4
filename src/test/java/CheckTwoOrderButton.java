@@ -17,12 +17,10 @@ import static ru.yandex.praktikum.pageObject.OrderPage.ORDER_PAGE_URL;
 
 
 @RunWith(Parameterized.class)
-public class CheckTwoOrderButton {
+public class CheckTwoOrderButton extends BaseTest {
 
     private final By buttonOrder;
     private final String urlOrderPage;
-
-    private WebDriver driver;
 
     public CheckTwoOrderButton(By buttonOrder, String urlOrderPage) {
         this.buttonOrder = buttonOrder;
@@ -37,14 +35,6 @@ public class CheckTwoOrderButton {
                 {BUTTON_ORDER_IN_FINISH_PAGE,ORDER_PAGE_URL},
         };
     }
-
-
-    @Before
-    public void startChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win64\\chromedriver.exe");
-        driver = new ChromeDriver();
-    }
-
 
     @Test
 
@@ -63,12 +53,6 @@ public class CheckTwoOrderButton {
 
     }
 
-
-
-    @After
-    public void closeDriver() {
-        driver.quit();
-    }
 
 
 }

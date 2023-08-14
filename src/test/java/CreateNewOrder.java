@@ -10,7 +10,7 @@ import ru.yandex.praktikum.pageObject.OrderPage;
 import static org.junit.runners.Parameterized.*;
 
 @RunWith(Parameterized.class)
-public class CreateNewOrder  {
+public class CreateNewOrder extends BaseTest  {
 
     private final String name;
     private final String surname;
@@ -22,7 +22,6 @@ public class CreateNewOrder  {
     private final String color;
     private final String comment;
 
-    private WebDriver driver;
 
     public CreateNewOrder(String name, String surname, String address, String metro, String number, String dateOrder, String periodRenta, String color, String comment) {
         this.name = name;
@@ -40,16 +39,8 @@ public class CreateNewOrder  {
     @Parameters
     public static Object[][] getCredentials(){
         return new Object[][] {
-                {"Вика","Семенова","ул.Ивантеевская, 45","Марьино","95326553236","27.07.2023","четверо суток","серая безысходность","УРА!! У меня будет самокат"},
+                {"Вика","Семенова","ул.Ивантеевская, 45","Марьино","95326553236","27.07.2023","четверо суток","чёрный жемчуг","УРА!! У меня будет самокат"},
         };
-    }
-
-
-
-    @Before
-    public void startChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win64\\chromedriver.exe");
-        driver = new ChromeDriver();
     }
 
 
@@ -61,17 +52,10 @@ public class CreateNewOrder  {
         objOrderPage.waitOrderPage();
         MainPage objMainPage = new MainPage(driver);
         objMainPage.findCookieQuestion();
-        objOrderPage.inputName(name);
-        objOrderPage.inputSurname(surname);
-        objOrderPage.inputAddress(address);
-        objOrderPage.chooseStationUnderground(metro);
-        objOrderPage.inputPhoneNumber(number);
+        objOrderPage.inputFirstPageOrder(name,surname,address,metro,number);
         objOrderPage.clickButtonNext();
         objOrderPage.waitOrderPage();
-        objOrderPage.inputDateOrder(dateOrder);
-        objOrderPage.chooseRentalPeriod(periodRenta);
-        objOrderPage.chooseColorScooter(color);
-        objOrderPage.inputComment(comment);
+        objOrderPage.inputSecondPageOrder(dateOrder,periodRenta,color,comment);
         objOrderPage.buttonOrderFinish();
         objOrderPage.waitLoadingAreYouSure();
         objOrderPage.clickButtonOk();

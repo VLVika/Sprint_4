@@ -58,7 +58,6 @@ public class OrderPage {
 
 
     public OrderPage(WebDriver driver) {
-
         this.driver = driver;
     }
 
@@ -87,52 +86,45 @@ public class OrderPage {
         driver.findElement(By.xpath(xPathStation)).click();
     }
 
-// заполняем поле Имя
-    public void inputName(String name){
-        driver.findElement(NAME).clear();
-        driver.findElement(NAME).sendKeys(name);
+//заполняем первую страницу
+public void inputFirstPageOrder(String name,String surname,String adress,String station,String number) {
+    // заполняем поле Имя
+    driver.findElement(NAME).clear();
+    driver.findElement(NAME).sendKeys(name);
+    //заполняем поле Фамилия
+    driver.findElement(SURNAME).sendKeys(surname);
+    //заполняем поле Адрес
+    driver.findElement(ADRESS).sendKeys(adress);
+    //запоняем поле Номер Телефона
+    driver.findElement(PHONE_NUMBER).sendKeys(number);
+    //выбираем станцию метро
+    driver.findElement(SELECT_METRO).click();
+    String xPathStation = ".//div[@class = 'Order_Text__2broi' and text()='" +  station + "']";
+    driver.findElement(By.xpath(xPathStation)).click();
     }
 
-//заполняем поле Фамилия
-    public void inputSurname(String surname){
-        driver.findElement(SURNAME).sendKeys(surname);
-    }
 
-//заполняем поле Адрес
-    public void inputAddress(String adress){
-        driver.findElement(ADRESS).sendKeys(adress);
-    }
-
-//запоняем поле Номер Телефона
-    public void inputPhoneNumber(String number){
-        driver.findElement(PHONE_NUMBER).sendKeys(number);
-    }
 
 //нажимаем кнопку Далее
     public void clickButtonNext(){
         driver.findElement(BUTTON_NEXT).click();
     }
 
-//заполняем срок доставки заказа
-    public void inputDateOrder(String date){
-        driver.findElement(DATE_ORDER).sendKeys(date);
-    }
 
-//выбираем срок аренды
-    public void chooseRentalPeriod(String period){
-        driver.findElement(RENTAL_PERIOD).click();
-        String xpathPeriod = ".//div[text() = '" + period + "']";
-        driver.findElement(By.xpath(xpathPeriod)).click();
-    }
+    //заполняем вторую страницу
+    public void inputSecondPageOrder(String date,String period,String color,String comment){
+    //заполняем срок доставки заказа
+    driver.findElement(DATE_ORDER).sendKeys(date);
+    //выбираем срок аренды
+    driver.findElement(RENTAL_PERIOD).click();
+    String xpathPeriod = ".//div[text() = '" + period + "']";
+    driver.findElement(By.xpath(xpathPeriod)).click();
+    //выбираем цвет самоката
+    String xpathColor = ".//label[text()='" + color + "']";
+    driver.findElement(By.xpath(xpathColor)).click();
+    //ввод комментария для курьера
+    driver.findElement(COMMENT_FIELD).sendKeys(comment);
 
-//выбираем цвет самоката
-    public void chooseColorScooter(String color)    {
-        driver.findElement(By.name(color)).click();
-    }
-
-//ввод комментария для курьера
-    public void inputComment(String comment){
-        driver.findElement(COMMENT_FIELD).sendKeys(comment);
     }
 
 // нажимаем на кнопку Заказать
@@ -148,7 +140,7 @@ public class OrderPage {
 //ждем загрузки окна Хотите оформить заказ?
     public void waitLoadingAreYouSure(){
         new WebDriverWait(driver, 5)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("Хотите оформить заказ?")));
+                .until(ExpectedConditions.presenceOfElementLocated((ARE_YOU_SURE)));
     }
 
 //Кнопка ДА в окне вопрос    Хотите оформить заказ?
