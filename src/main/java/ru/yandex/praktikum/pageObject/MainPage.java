@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 
 public class MainPage {
  // поле драйвера
@@ -39,10 +41,10 @@ public class MainPage {
     private static final By ANSWER_FIELD = By.className("accordion__panel");
 
 // поле Вопрос
-    private static final String BUTTON_QUESTION = "accordion__heading-";
+    private static final By BUTTON_QUESTION = By.xpath(".//div[@data-accordion-component = 'AccordionItemButton']");
 
 // поле Ответ на Вопрос
-    private static final String ANSWER_ON_BUTTON_QUESTION = "accordion__panel-";
+    private static final By ANSWER_ON_BUTTON_QUESTION = By.className("accordion__panel");
 
 
 //Конструктор класса
@@ -75,17 +77,19 @@ public class MainPage {
     }
 
 //Находим кнопку Вопросы о Важном, по номеру вопроса, проверяем соотвествие текста вопроса ожидаемому, кликаем на нее
-    public void findAndClickButtonQuestionAboutImportant(String number, String expectedQuestion){
-      WebElement question = driver.findElement(By.id(BUTTON_QUESTION + number));
-      String actualQuestion = question.getText();
-      question.click();
+    public void findAndClickButtonQuestionAboutImportant(int number, String expectedQuestion){
+        List<WebElement> elementsQuestion = driver.findElements(BUTTON_QUESTION);
+        WebElement question = elementsQuestion.get(number);
+        String actualQuestion = question.getText();
         assertEquals("Ожидаемый текст вопроса не соответствует фактическому",expectedQuestion,actualQuestion);
         question.click();
     }
 
 //Находим кнопку ответа по номеры ответа в списке, получаем текст
-    public String findAnswerInQuestionAboutImportant(String number){
-        return driver.findElement(By.id(ANSWER_ON_BUTTON_QUESTION + number)).getText();
+    public String findAnswerInQuestionAboutImportant(int number){
+        List<WebElement> elementsAnswer = driver.findElements(ANSWER_ON_BUTTON_QUESTION);
+        return elementsAnswer.get(number).getText();
+
     }
 
 //метод проверки наличия на странице сообщения о куки и закрытия их, в случае если они отобразились на странице
